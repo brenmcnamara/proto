@@ -1,12 +1,16 @@
+/* tslint:disable: no-console no-empty no-unused-variable */
+
 import './PropsEditor.css';
 
 import * as React from 'react';
 import classnames from 'classnames';
+import FileEditorPropsEditor from './FileEditorPropsEditor';
 import SelectorInput from './SelectorInput';
 import TablePropsEditor from './TablePropsEditor';
 
 import { EditorMode, EditorModeType } from './PropsEditorTypes';
 import { Insets } from '../table-proto/Geo';
+import { Props as FileEditorProps } from '../file-editor-proto/App';
 import { Props as TableProps } from '../table-proto/Table';
 
 interface Props {
@@ -45,7 +49,16 @@ export default class PropsEditor extends React.Component<Props> {
       }
 
       case 'FileApp': {
-        return <div className="PropsEditor">{modeSelector}</div>;
+        return (
+          <div className="PropsEditor">
+            {modeSelector}
+            <FileEditorPropsEditor
+              changeKey={changeKey}
+              onChangeFileEditorProps={this.onChangeFileEditorProps}
+              fileEditorProps={mode.props}
+            />
+          </div>
+        );
       }
 
       case 'FileTree': {
@@ -71,6 +84,14 @@ export default class PropsEditor extends React.Component<Props> {
 
   private onSelectOption = (option: EditorModeType) => {
     this.props.onChangeModeType(option);
+  };
+
+  private onChangeFileEditorProps = (props: FileEditorProps) => {
+    const { mode, onChangeMode } = this.props;
+    if (mode.type !== 'FileApp') {
+      throw Error('Expecting mode to be "FileApp"');
+    }
+    onChangeMode({ ...mode, props });
   };
 
   private onChangeTableProps = (tableProps: TableProps) => {

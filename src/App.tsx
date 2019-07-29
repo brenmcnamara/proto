@@ -1,3 +1,5 @@
+/* tslint:disable: no-console no-empty no-unused-variable */
+
 import './App.css';
 
 import * as React from 'react';
@@ -35,7 +37,7 @@ export default class App extends React.Component<Props, State> {
       changeKey: '1',
       editorModes: {
         FileApp: {
-          props: {},
+          props: { primaryFont: 'Helvetica Neue' },
           type: 'FileApp',
         },
         FileTree: {

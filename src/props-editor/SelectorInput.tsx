@@ -12,9 +12,13 @@ export default class SelectorInput<
   TOption extends string
 > extends React.Component<Props<TOption>> {
   public render() {
-    const { options } = this.props;
+    const { options, selectedIndex } = this.props;
     return (
-      <select className="PropsEditor-select" onChange={this.onChangeSelect}>
+      <select
+        className="PropsEditor-select"
+        defaultValue={options[selectedIndex]}
+        onChange={this.onChangeSelect}
+      >
         {options.map((optionValue, i) => (
           <option
             className="PropsEditor-option"
