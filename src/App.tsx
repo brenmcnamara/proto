@@ -37,7 +37,7 @@ export default class App extends React.Component<Props, State> {
       changeKey: '1',
       editorModes: {
         FileApp: {
-          props: { primaryFont: 'Helvetica Neue' },
+          props: { primaryFont: 'Lato' },
           type: 'FileApp',
         },
         FileTree: {

@@ -16,13 +16,17 @@ export default class FileEditorPropsEditor extends React.Component<Props> {
   }
 
   public render() {
+    const { fileEditorProps } = this.props;
+
     return (
       <React.Fragment>
         <PropsEditorRow name="Font">
           <SelectorInput
             onSelectOption={this.onSelectFontOption}
             options={this.fontOptions}
-            selectedIndex={0}
+            selectedIndex={this.fontOptions.indexOf(
+              fileEditorProps.primaryFont,
+            )}
           />
         </PropsEditorRow>
       </React.Fragment>

@@ -15,48 +15,41 @@
 
 .FileApp h1 {
   font-size: 20pt;
-  font-weight: 500;
-  margin: 0;
-  margin-bottom: 40px;
+  font-weight: 700;
+  margin: 20px 0 40px 0;
   padding: 0;
 }
 
 .FileApp h2 {
-  color: #222;
+  color: black;
   font-size: 16pt;
-  font-weight: 500;
-  margin: 0;
-  margin-bottom: 20px;
-  margin-top: 28px;
+  font-weight: 600;
+  margin: 32px 0;
   padding: 0;
 }
 
 .FileApp h3 {
-  color: #222;
+  color: black;
   font-size: 14pt;
-  font-weight: 500;
-  margin: 0;
-  margin-bottom: 20px;
-  margin-top: 24px;
+  font-weight: 600;
+  margin: 28px 0;
   padding: 0;
 }
 
 .FileApp h4 {
   color: #222;
   font-size: 12pt;
-  font-weight: 500;
-  margin: 0;
-  margin-bottom: 20px;
+  font-weight: 600;
+  margin: 24px 0;
   padding: 0;
 }
 
 .FileApp p {
-  color: #444;
+  color: #666;
   font-size: 12pt;
   font-weight: regular;
-  line-height: 18pt;
-  margin: 0;
-  margin-bottom: 20px;
+  line-height: 20pt;
+  margin: 16px 0;
   padding: 0;
 }
 
