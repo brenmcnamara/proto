@@ -1,0 +1,38 @@
+.PropsEditor {
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  opacity: 0.8;
+}
+
+.PropsEditor-row {
+  border-bottom: solid #444 1px;
+  padding: 16px 12px;
+}
+
+.PropsEditor-row-name {
+  display: inline-block;
+  width: 150px;
+}
+
+.PropsEditor-input {
+  background-color: black;
+  border: solid white 1px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.PropsEditor-input__error {
+  outline-color: #e74c3c;
+}
+
+.PropsEditor-select {
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  height: 28px;
+  width: 150px;
+}

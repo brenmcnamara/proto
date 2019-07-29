@@ -1,0 +1,12 @@
+.HorizontalScrollFileTree-root {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.HorizontalScrollFileTree-columnDivide {
+  width: 1px;
+  flex-shrink: 0;
+}

@@ -1,0 +1,23 @@
+body {
+  font-family: 'Avenir Next';
+  margin: 0;
+  overflow: hidden; /* prevents scroll bouncing in some browsers */
+  padding: 0;
+}
+
+.margin-left-8 {
+  margin-left: 8px;
+}
+
+.margin-right-8 {
+  margin-right: 8px;
+}
+
+/*******************************************************************************
+ * FONTS
+ ******************************************************************************/
+
+.font-body {
+  font-size: 14px;
+  line-height: 16px;
+}

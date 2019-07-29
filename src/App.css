@@ -1,0 +1,18 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.App-protoContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.App-propsEditorContainer {
+  bottom: 8px;
+  position: fixed;
+  right: 8px;
+  z-index: 5;
+}

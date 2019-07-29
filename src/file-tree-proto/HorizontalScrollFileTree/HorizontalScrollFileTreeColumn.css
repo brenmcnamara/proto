@@ -1,0 +1,11 @@
+.HorizontalScrollFileTreeColumn-root {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  overflow: auto;
+  position: relative;
+}
+
+.HorizontalScrollFileTreeColumn-row {
+  box-sizing: border-box;
+}

@@ -1,0 +1,12 @@
+.FileComponent-root {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: 4px 8px;
+  transition: background-color 200ms;
+}
+
+.FileComponent-root:hover {
+  background-color: #efefef;
+}

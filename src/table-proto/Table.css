@@ -1,0 +1,126 @@
+.Table {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.Table-panel {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.Table-panel.Table-panel__locked {
+  flex-shrink: 0;
+  overflow: visible; /* override on locked panels. Want resize handle to overflow */
+  z-index: 3;
+}
+
+.Table-panel__free {
+  flex-grow: 1;
+}
+
+.Table-innerPanelContainer {
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.Table-panel__locked .Table-innerPanelContainer {
+  overflow: visible; /* override on locked panels. Want resize handle to overflow */
+}
+
+.Table-innerPanel-header {
+  background-color: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.Table-panel__locked > .Table-innerPanel-header {
+  z-index: 3;
+}
+
+.Table-innerPanel-body {
+  flex-grow: 1;
+  overflow: hidden;
+  position: absolute;
+}
+
+.Table-panel__locked .Table-innerPanel-body {
+  overflow: visible; /* override on locked panels. Want resize handle to overflow */
+}
+
+.Table-row {
+  box-sizing: border-box;
+  border-left: solid #dde1e3 1px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Table-tableCell {
+  border: solid #dde1e3 1px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 0 8px;
+}
+
+.Table-tableCell__header {
+  background-color: #f5f5f5;
+}
+
+.Table-tableCell__noTopBorder {
+  border-top: none;
+}
+
+.Table-tableCell__noBottomBorder {
+  border-bottom: none;
+}
+
+.Table-tableCell__noLeftBorder {
+  border-left: none;
+}
+
+.Table-tableCell__noRightBorder {
+  border-right: none;
+}
+
+.Table-scrollOverlay {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4;
+}
+
+.Table-scrollBar {
+  background-color: black;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.3;
+  pointer-events: auto;
+  position: absolute;
+  transition: opacity 300ms;
+}
+
+.Table-scrollBar:hover {
+  opacity: 0.5;
+}
+
+.Table-scrollBar__vertical {
+  right: 2px;
+  width: 8px;
+}
+
+.Table-scrollBar__horizontal {
+  bottom: 2px;
+  height: 8px;
+}
