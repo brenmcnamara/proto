@@ -2,6 +2,7 @@ import './App.css';
 
 import * as React from 'react';
 import DOMTreeAdapter from './file-tree-proto/DOMTreeAdapter';
+import FileApp from './file-editor-proto/App';
 import FileTree from './file-tree-proto/FileTree';
 import FullScreenView from './FullScreenView';
 import GQLSDL from './gql-sdl-proto/GQLSDL';
@@ -33,6 +34,10 @@ export default class App extends React.Component<Props, State> {
     this.state = {
       changeKey: '1',
       editorModes: {
+        FileApp: {
+          props: {},
+          type: 'FileApp',
+        },
         FileTree: {
           props: {
             adapter: new DOMTreeAdapter(),
@@ -88,6 +93,10 @@ export default class App extends React.Component<Props, State> {
         break;
       }
 
+      case 'FileApp': {
+        proto = <FileApp {...selectedEditorMode.props} />;
+        break;
+      }
       case 'FileTree': {
         proto = <FileTree {...selectedEditorMode.props} />;
         break;

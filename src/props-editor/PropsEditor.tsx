@@ -19,7 +19,12 @@ interface Props {
 export default class PropsEditor extends React.Component<Props> {
   public render() {
     const { changeKey, mode } = this.props;
-    const options: EditorModeType[] = ['Table', 'FileTree', 'GQLSDL'];
+    const options: EditorModeType[] = [
+      'Table',
+      'FileApp',
+      'FileTree',
+      'GQLSDL',
+    ];
 
     const modeSelector = (
       <div className="PropsEditor-row">
@@ -36,6 +41,10 @@ export default class PropsEditor extends React.Component<Props> {
 
     switch (mode.type) {
       case 'GQLSDL': {
+        return <div className="PropsEditor">{modeSelector}</div>;
+      }
+
+      case 'FileApp': {
         return <div className="PropsEditor">{modeSelector}</div>;
       }
 
