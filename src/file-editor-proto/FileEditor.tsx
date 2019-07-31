@@ -13,12 +13,12 @@ export default class FileEditor extends React.Component<Props> {
           Working in software development and design, we are often required to
           ship one-off solutions. Sometimes we’re working within time
           constraints and sometimes we just haven’t yet agreed upon a path
-          forward. These one-off solutions aren’t inherently bad, but if they
+          forward. <b>These one-off solutions aren’t inherently bad, but if they
           aren’t built upon a solid foundation, we eventually find ourselves
-          having to pay back accrued technical and design debts.
+          having to pay back accrued technical and design debts.</b>
         </p>
         <p>
-          Visual language is like any other language. Misunderstandings arise if
+          <i>Visual language is like any other language.</i> Misunderstandings arise if
           the language is not shared and understood by everyone using it. As a
           product or team grows, the challenges within these modalities
           compound.
@@ -41,8 +41,8 @@ export default class FileEditor extends React.Component<Props> {
           Airbnb has experienced a lot of growth over the years. Currently our
           design department consists of nearly a dozen functions and outcome
           teams. It became clear that we needed more systematic ways to guide
-          and leverage our collective efforts. While we recognized these
-          challenges within the company, I believe they are symptoms of larger
+          and leverage our collective efforts. <span className="highlight highlight-yellow">While we recognized these
+          challenges within the company,</span> I believe they are symptoms of larger
           software industry problems.
         </p>
         <h3>Too Few Constraints</h3>
