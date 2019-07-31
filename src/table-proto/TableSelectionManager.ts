@@ -26,6 +26,7 @@ import {
 export default class TableSelectionManager {
   private callbacksOnChangeSelection: Array<(sel: TableSelection) => void> = [];
   private callbacksOnCommitSelection: Array<(sel: TableSelection) => void> = [];
+  private callbacksOnStartSelectionChange: Array<() => void> = [];
   private eventSubscriptions: EventSubscription[] = [];
   private isResizingSelection: boolean = false;
   private layout: TableLayout;
@@ -108,6 +109,18 @@ export default class TableSelectionManager {
   // PUBLIC METHODS
   //
   // ---------------------------------------------------------------------------
+
+  public registerOnStartSelectionChange(cb: () => void): EventSubscription {
+    this.callbacksOnStartSelectionChange.push(cb);
+    return {
+      remove: () => {
+        const index = this.callbacksOnStartSelectionChange.indexOf(cb);
+        if (index >= 0) {
+          this.callbacksOnStartSelectionChange.splice(index, 1);
+        }
+      },
+    };
+  }
 
   public registerOnChangeSelection(
     cb: (selection: TableSelection) => void,
@@ -234,6 +247,8 @@ export default class TableSelectionManager {
     );
 
     this.tableRefs.updateSelectionHandleLocations(selectionHandleLocations);
+
+    this.callbacksOnStartSelectionChange.forEach(cb => cb());
   };
 
   private onResizeSelectionRegionMouseMove = (event: MouseEvent) => {

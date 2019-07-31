@@ -66,7 +66,7 @@ export default class App extends React.Component<Props, State> {
           type: 'Table',
         },
       },
-      selectedModeType: 'FileApp',
+      selectedModeType: 'Table',
       showPropsEditor: false,
     };
   }

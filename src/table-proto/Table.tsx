@@ -12,9 +12,9 @@ import TableSelectionManager from './TableSelectionManager';
 import {
   EventSubscription,
   subscribedToDOMEvent,
+  trySubscribeToDOMEvent,
 } from '../EventSubscriptionUtils';
-import { nullthrows } from '../Utils';
-import { TableLayout, TableSelection } from './TableTypes';
+import { TableDragMode, TableLayout, TableSelection } from './TableTypes';
 
 export interface Props {
   layout: TableLayout;
@@ -22,7 +22,15 @@ export interface Props {
   selection: TableSelection | null;
 }
 
-export default class Table extends React.Component<Props> {
+interface State {
+  dragMode: TableDragMode | null;
+}
+
+export default class Table extends React.Component<Props, State> {
+  public state: State = {
+    dragMode: null,
+  };
+
   // ---------------------------------------------------------------------------
   //
   // PROPERTIES
@@ -58,13 +66,29 @@ export default class Table extends React.Component<Props> {
     this.scrollManager.config();
     this.selectionManager.config();
 
-    this.selectionManager.registerOnCommitSelection(this.onCommitSelection);
-
-    const rootRef = nullthrows(this.tableRefs.root.current);
-
     this.eventSubscriptions.push(
       subscribedToDOMEvent(window, 'resize', this.onResize),
-      subscribedToDOMEvent(rootRef, 'wheel', this.onWheelDOM),
+      trySubscribeToDOMEvent(
+        this.tableRefs.root.current,
+        'wheel',
+        this.onWheelDOM,
+      ),
+      this.selectionManager.registerOnStartSelectionChange(
+        this.onStartSelectionChange,
+      ),
+      this.selectionManager.registerOnCommitSelection(this.onCommitSelection),
+      this.scrollManager.registerOnStartDragScrollBarHorizontal(
+        this.onStartDragScrollBarHorizontal,
+      ),
+      this.scrollManager.registerOnStartDragScrollBarVertical(
+        this.onStartDragScrollBarVertical,
+      ),
+      this.scrollManager.registerOnEndDragScrollBarHorizontal(
+        this.onEndDragScrollBarHorizontal,
+      ),
+      this.scrollManager.registerOnEndDragScrollBarVertical(
+        this.onEndDragScrollBarVertical,
+      ),
     );
   }
 
@@ -90,6 +114,8 @@ export default class Table extends React.Component<Props> {
   public render() {
     const { layout, selection } = this.props;
     const data = this.calculateData(this.props);
+
+    console.log('drag mode', this.state.dragMode);
 
     return (
       <div
@@ -147,8 +173,29 @@ export default class Table extends React.Component<Props> {
   //
   // ---------------------------------------------------------------------------
 
+  private onStartSelectionChange = () => {
+    this.setState({ dragMode: 'selection' });
+  };
+
   private onCommitSelection = (selection: TableSelection) => {
+    this.setState({ dragMode: null });
     this.props.onCommitSelection(selection);
+  };
+
+  private onStartDragScrollBarHorizontal = () => {
+    this.setState({ dragMode: 'h-scrollbar' });
+  };
+
+  private onStartDragScrollBarVertical = () => {
+    this.setState({ dragMode: 'v-scrollbar' });
+  };
+
+  private onEndDragScrollBarHorizontal = () => {
+    this.setState({ dragMode: null });
+  };
+
+  private onEndDragScrollBarVertical = () => {
+    this.setState({ dragMode: null });
   };
 
   private onWheelDOM = (event: WheelEvent) => {

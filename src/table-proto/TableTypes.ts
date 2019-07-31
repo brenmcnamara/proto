@@ -5,6 +5,8 @@ export interface CellLocation {
   row: number;
 }
 
+export type TableDragMode = 'v-scrollbar' | 'h-scrollbar' | 'selection';
+
 export interface TableLayout {
   colWidths: number[];
   headerRowCount: number;

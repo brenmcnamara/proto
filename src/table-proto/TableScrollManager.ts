@@ -15,6 +15,10 @@ import { TableLayout } from './TableTypes';
  * scroll bars.
  */
 export default class TableScrollManager {
+  private callbacksOnStartDragScrollBarHorizontal: Array<() => void> = [];
+  private callbacksOnStartDragScrollBarVertical: Array<() => void> = [];
+  private callbacksOnEndDragScrollBarHorizontal: Array<() => void> = [];
+  private callbacksOnEndDragScrollBarVertical: Array<() => void> = [];
   private scrollOffsetRAW: Point = { x: 0, y: 0 };
   private eventSubscriptions: EventSubscription[] = [];
   private layout: TableLayout;
@@ -73,6 +77,60 @@ export default class TableScrollManager {
   //
   // ---------------------------------------------------------------------------
 
+  public registerOnStartDragScrollBarVertical(
+    cb: () => void,
+  ): EventSubscription {
+    this.callbacksOnStartDragScrollBarVertical.push(cb);
+    return {
+      remove: () => {
+        const index = this.callbacksOnStartDragScrollBarVertical.indexOf(cb);
+        if (index >= 0) {
+          this.callbacksOnStartDragScrollBarVertical.splice(index, 1);
+        }
+      },
+    };
+  }
+
+  public registerOnStartDragScrollBarHorizontal(
+    cb: () => void,
+  ): EventSubscription {
+    this.callbacksOnStartDragScrollBarHorizontal.push(cb);
+    return {
+      remove: () => {
+        const index = this.callbacksOnStartDragScrollBarHorizontal.indexOf(cb);
+        if (index >= 0) {
+          this.callbacksOnStartDragScrollBarHorizontal.splice(index, 1);
+        }
+      },
+    };
+  }
+
+  public registerOnEndDragScrollBarVertical(cb: () => void): EventSubscription {
+    this.callbacksOnEndDragScrollBarVertical.push(cb);
+    return {
+      remove: () => {
+        const index = this.callbacksOnEndDragScrollBarVertical.indexOf(cb);
+        if (index >= 0) {
+          this.callbacksOnEndDragScrollBarVertical.splice(index, 1);
+        }
+      },
+    };
+  }
+
+  public registerOnEndDragScrollBarHorizontal(
+    cb: () => void,
+  ): EventSubscription {
+    this.callbacksOnEndDragScrollBarHorizontal.push(cb);
+    return {
+      remove: () => {
+        const index = this.callbacksOnEndDragScrollBarHorizontal.indexOf(cb);
+        if (index >= 0) {
+          this.callbacksOnEndDragScrollBarHorizontal.splice(index, 1);
+        }
+      },
+    };
+  }
+
   // TODO: Clamping is being done before this component is called, need to
   // change that.
   public scrollToOffset(offsetUnclamped: Point) {
@@ -113,8 +171,32 @@ export default class TableScrollManager {
   // ---------------------------------------------------------------------------
 
   private onDragScrollBar = (dragState: ScrollBarDragState) => {
+    if (dragState.stage === 'BEGIN') {
+      switch (dragState.scrollDirection) {
+        case 'horizontal':
+          this.callbacksOnStartDragScrollBarHorizontal.forEach(cb => cb());
+          break;
+
+        case 'vertical':
+          this.callbacksOnStartDragScrollBarVertical.forEach(cb => cb());
+          break;
+      }
+    }
+
     if (dragState.stage === 'MOVE' && dragState.scrollOffset) {
       this.update(dragState.scrollOffset, this.layout, this.tableSize);
+    }
+
+    if (dragState.stage === 'END') {
+      switch (dragState.scrollDirection) {
+        case 'horizontal':
+          this.callbacksOnEndDragScrollBarHorizontal.forEach(cb => cb());
+          break;
+
+        case 'vertical':
+          this.callbacksOnEndDragScrollBarVertical.forEach(cb => cb());
+          break;
+      }
     }
   };
 
