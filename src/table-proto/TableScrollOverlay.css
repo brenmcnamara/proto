@@ -1,0 +1,33 @@
+.TableScrollOverlay {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4;
+}
+
+.TableScrollOverlay-scrollBar {
+  background-color: black;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.3;
+  pointer-events: auto;
+  position: absolute;
+  transition: opacity 300ms;
+}
+
+.TableScrollOverlay-scrollBar__enableInteractions:hover {
+  opacity: 0.5;
+}
+
+.TableScrollOverlay-scrollBar__vertical {
+  right: 2px;
+  width: 8px;
+}
+
+.TableScrollOverlay-scrollBar__horizontal {
+  bottom: 2px;
+  height: 8px;
+}

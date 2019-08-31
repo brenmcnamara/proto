@@ -1,6 +1,6 @@
 /* tslint:disable:max-classes-per-file no-console no-empty no-unused-variable */
 
-import './Table.css';
+import './TableScrollOverlay.css';
 
 import * as React from 'react';
 import classnames from 'classnames';
@@ -30,6 +30,7 @@ export interface ScrollBarDragState {
 }
 
 interface Props {
+  enableInteractions: boolean;
   layout: TableLayout;
 }
 
@@ -143,26 +144,28 @@ export default class TableScrollOverlay extends React.Component<Props, State> {
   // ---------------------------------------------------------------------------
 
   public render() {
-    const { layout } = this.props;
+    const { enableInteractions, layout } = this.props;
 
     return (
       <div
-        className="Table-scrollOverlay"
+        className="TableScrollOverlay"
         ref={this.rootRef}
         style={{ top: `${layout.rowHeight * layout.headerRowCount}px` }}
       >
         <div
           className={classnames({
-            'Table-scrollBar': true,
-            'Table-scrollBar__vertical': true,
+            'TableScrollOverlay-scrollBar': true,
+            'TableScrollOverlay-scrollBar__enableInteractions': enableInteractions,
+            'TableScrollOverlay-scrollBar__vertical': true,
           })}
           onMouseDown={this.onMouseDownScrollBarVert}
           ref={this.scrollBarVertRef}
         />
         <div
           className={classnames({
-            'Table-scrollBar': true,
-            'Table-scrollBar__horizontal': true,
+            'TableScrollOverlay-scrollBar': true,
+            'TableScrollOverlay-scrollBar__enableInteractions': enableInteractions,
+            'TableScrollOverlay-scrollBar__horizontal': true,
           })}
           onMouseDown={this.onMouseDownScrollBarHor}
           ref={this.scrollBarHorRef}
@@ -178,7 +181,7 @@ export default class TableScrollOverlay extends React.Component<Props, State> {
   // ---------------------------------------------------------------------------
 
   private onMouseDownScrollBarVert = (event: React.SyntheticEvent) => {
-    if (this.dragState) {
+    if (this.dragState || !this.props.enableInteractions) {
       // This is probably a sign of a bug if we reach this point.
       return;
     }
@@ -191,7 +194,7 @@ export default class TableScrollOverlay extends React.Component<Props, State> {
   };
 
   private onMouseDownScrollBarHor = (event: React.SyntheticEvent) => {
-    if (this.dragState) {
+    if (this.dragState || !this.props.enableInteractions) {
       // This is probably a sign of a bug if we reach this point.
       return;
     }

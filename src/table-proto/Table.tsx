@@ -113,9 +113,8 @@ export default class Table extends React.Component<Props, State> {
 
   public render() {
     const { layout, selection } = this.props;
+    const { dragMode } = this.state;
     const data = this.calculateData(this.props);
-
-    console.log('drag mode', this.state.dragMode);
 
     return (
       <div
@@ -125,6 +124,7 @@ export default class Table extends React.Component<Props, State> {
         style={{ position: 'relative' }}
       >
         <TableScrollOverlay
+          enableInteractions={dragMode !== 'selection'}
           layout={layout}
           ref={this.tableRefs.scrollOverlay}
         />
