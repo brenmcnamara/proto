@@ -19,7 +19,7 @@ import { Point } from './Geo';
 
 interface Props {
   columnType: TableColumnType;
-  data: string[][];
+  data: React.ReactElement[][];
   layout: TableLayout;
   ref: React.RefObject<TableColumns>;
   refBody: React.RefObject<HTMLDivElement>;

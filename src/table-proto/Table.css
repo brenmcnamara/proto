@@ -1,3 +1,9 @@
+.custom-table-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .Table {
   display: flex;
   flex-direction: row;

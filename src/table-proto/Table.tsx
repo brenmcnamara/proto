@@ -150,15 +150,19 @@ export default class Table extends React.Component<Props, State> {
     );
   }
 
-  private calculateData(props: Props): string[][] {
+  private calculateData(props: Props): React.ReactElement[][] {
     const { layout } = props;
-    const data: string[][] = [];
+    const data: React.ReactElement[][] = [];
 
     for (let i = 0; i < layout.numRows; ++i) {
-      const row: string[] = [];
+      const row: React.ReactElement[] = [];
       for (let j = 0; j < layout.numCols; ++j) {
         row.push(
-          i < layout.headerRowCount ? `Header ${i}-${j}` : `Cell ${i}-${j}`,
+          i < layout.headerRowCount ? (
+            <div className="custom-table-cell">{`Header ${i}-${j}`}</div>
+          ) : (
+            <div className="custom-table-cell">{`Cell ${i}-${j}`}</div>
+          ),
         );
       }
       data.push(row);
@@ -166,12 +170,6 @@ export default class Table extends React.Component<Props, State> {
 
     return data;
   }
-
-  // ---------------------------------------------------------------------------
-  //
-  // EVENTS
-  //
-  // ---------------------------------------------------------------------------
 
   private onStartSelectionChange = () => {
     this.setState({ dragMode: 'selection' });
@@ -199,7 +197,6 @@ export default class Table extends React.Component<Props, State> {
   };
 
   private onWheelDOM = (event: WheelEvent) => {
-    // Need to do this to prevent back navigation gesture on chrome.
     if (event.deltaX < 0) {
       event.preventDefault();
     }
