@@ -427,11 +427,25 @@ export default class TableSelectionManager {
       return; // Corrupt state
     }
 
+    const prevOffset = this.scrollManager.scrollOffset;
+
     const offset = {
       x: this.scrollManager.scrollOffset.x + delta.x,
       y: this.scrollManager.scrollOffset.y + delta.y,
     };
+
     this.scrollManager.scrollToOffset(offset);
+
+    // After passing the offset to the scroll manager, the scroll manager will
+    // scroll to the given offset but after it clamps the values. If after
+    // the values have been clamped, the offset never changed, then we have
+    // nothing to update. Skip the update operation since it is very expensive.
+    if (
+      prevOffset.x === this.scrollManager.scrollOffset.x &&
+      prevOffset.y === this.scrollManager.scrollOffset.y
+    ) {
+      return;
+    }
 
     this.performSelectionRegionResizeUpdate(
       this.resizeHandleDragState,
@@ -511,6 +525,10 @@ export default class TableSelectionManager {
       recalibratedScrollOffset.y = 0;
     }
 
+    // The calibrated scroll offset esentially acts as the scroll position
+    // before we began scrolling. We need to use this to take deltas over the
+    // selection region. When we change the panel we are in, we need to
+    // recalibrate the initial scroll and the deltas from that scroll.
     this.resizeHandleCalibratedScrollOffset = recalibratedScrollOffset;
     this.scrollManager.scrollToOffset(scrollOffset);
   }
@@ -628,7 +646,7 @@ export default class TableSelectionManager {
       while (true) {
         const currentCellCorner = initialCell.col + deltaCol;
         if (currentCellCorner < 0) {
-          // We've gone passed the beginning of the table.
+          // We've gone past the beginning of the table.
           break;
         } else if (x > -layout.colWidths[currentCellCorner]) {
           // The delta is in between the beginning of this col and the beginning
@@ -721,9 +739,7 @@ export default class TableSelectionManager {
 
       default:
         throw Error(
-          `Unsupported initial handle corner: ${
-            dragState.initialResizeHandleCorner
-          }`,
+          `Unsupported initial handle corner: ${dragState.initialResizeHandleCorner}`,
         );
     }
 
@@ -772,6 +788,12 @@ export default class TableSelectionManager {
     return { width: current.offsetWidth, height: current.offsetHeight };
   }
 }
+
+// -----------------------------------------------------------------------------
+//
+// PRIVATE UTILITIES
+//
+// -----------------------------------------------------------------------------
 
 function calculateScrollVelocity(
   rectScrollInvariant: Rect,
