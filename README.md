@@ -1,3 +1,35 @@
+# Proto
+
+Proto is a medley of different javascript / typescript related web prototypes.
+
+## Env
+
+- Install [node and npm](https://nodejs.org/en/download/)
+- Install [yarn](https://classic.yarnpkg.com/en/docs/cli/install/)
+
+## Run Proto
+
+Run the following commands from inside the repo:
+
+```
+yarn install
+yarn start
+```
+
+## Debugger
+
+When inside the web app, you can type `option-d` to bring up the prototype debugger.
+
+## Table Prototype
+
+The table prototype is the largest prototype in the repo. It runs airtable-like table behavior, with sticky
+headers, sticky columns, and cell selection.
+
+*NOTE: To use the cell selection in the debugger pane, the syntax is `<row-start>-<row-end>;<col-start>-<col-end>`, so
+`1-4;2-3` would create a selection box around the cells in rows 1-4 and columns 2-3.*
+
+# Create React App Docs
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
